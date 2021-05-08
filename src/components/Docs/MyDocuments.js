@@ -10,6 +10,10 @@ import {
   getExcelFileTable,
   sendExcelFileTable,
 } from "../../redux/actions/DocumentsActions/document"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
+toast.configure()
 
 export default function MyDocuments(props) {
   const dispatch = useDispatch()
@@ -21,6 +25,12 @@ export default function MyDocuments(props) {
   }
   const handleSendExcelFile = (id, is_order) => {
     dispatch(sendExcelFileTable(id, is_order))
+  }
+  const notify = () => {
+    toast.success("Файл успешно отправлен!", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 3000,
+    })
   }
   return (
     <div className="container">
@@ -50,7 +60,7 @@ export default function MyDocuments(props) {
             className="card-footer-my"
             onClick={() => handleSendExcelFile(excel.id, true)}
           >
-            <div className="card-footer-downloader-my">Отправить</div>
+            <div  onClick={notify} className="card-footer-downloader-my">Отправить</div>
           </button>
         </div>
       
