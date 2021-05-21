@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getData, login, logout } from "./redux/actions/index"
 import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom"
 import Activate from "./components/Activate/Activate"
-import Vlad from "./components/vlad/Vlad"
-//sasasas
+
 import {
   getDocsList,
   getTemplateExcelFile,
@@ -23,8 +22,6 @@ const App = () => {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.data.token)
   const loginSuccess = useSelector((state) => state.data.login.success)
-  const is_vlad= useSelector((state) => state.data.is_vlad)
-  const vlad = useSelector((state) => state.data.vlad)
   const getSuccess = useSelector((state) => state.data.get.success)
   const uploadState = useSelector((state) => state.docs.uploadFileState)
   const getDataLoading = useSelector((state) => state.data.get.loading)
@@ -48,17 +45,12 @@ const App = () => {
           <Route path="/newpassword" component={NewPassword} exact />
           <Route path="/auth/activate/:token" component={Activate} />
 
-          {(vlad || is_vlad) && <Route path="/parfume" component={Vlad} />}
-          {(vlad || is_vlad) && <Redirect to="/parfume" />}
-
-          {(loginSuccess || getSuccess) && vlad == false && (
+          {(loginSuccess || getSuccess) && (
             <Route path="/main" component={Sidebar} />
           )}
-          {(loginSuccess || getSuccess) && vlad == false && (
-            <Redirect to="/main" />
-          )}
-          {!loginSuccess && !vlad && <Route path="/login" component={Login} />}
-          {!loginSuccess && !vlad && <Redirect to="/login" />}
+          {(loginSuccess || getSuccess) && <Redirect to="/main" />}
+          {!loginSuccess && <Route path="/login" component={Login} />}
+          {!loginSuccess && <Redirect to="/login" />}
         </Switch>
         {getDataLoading && <Loading />}
       </div>

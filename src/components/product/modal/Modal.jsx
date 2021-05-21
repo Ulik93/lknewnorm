@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import constants from "../../redux/constants"
+import constants from "../../../redux/constants"
 import style from "./Modal.module.css"
 
 const Modal = () => {

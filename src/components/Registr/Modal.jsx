@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import style from "../vlad/Modal.module.css"
+import style from "../product/modal/Modal.module.css"
 
 const Modal = ({ children }) => {
   const [showModal, setShowModal] = useState(true)

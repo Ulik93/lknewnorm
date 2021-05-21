@@ -32,9 +32,7 @@ import Calendar from "../Calendar/Calendar"
 import NewsItem from "../News/NewsItem"
 import TableDoc from "../Docs/TableDoc"
 import UpdateProfile from "../Profile/UpdateProfile"
-import Clothes from "../products/clothes/Clothes"
-import Shoes from "../products/shoes/Shoes"
-import Perfume from "../products/perfume/Perfume"
+import { SingleSidebarCategory } from "../product/SingleSidebarCategory"
 
 const drawerWidth = 240
 
@@ -129,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer() {
   const classes = useStyles()
   const dispatch = useDispatch()
+
   const [open, setOpen] = React.useState(false)
   const MobileVersionPlatform = useMediaQuery("(max-width:768px)")
   const handleDrawerOpen = () => {
@@ -307,15 +306,15 @@ export default function MiniDrawer() {
                       icon: "fas fa-spray-can",
                     },
                     {
-                    text: "Задачи",
-                    path: "/main/todos",
-                    icon: "fas fa-clipboard-list",
-                  },
-                  {
-                    text: "Календарь",
-                    path: "/main/calendar",
-                    icon: "fas fa-calendar-alt",
-                  },
+                      text: "Задачи",
+                      path: "/main/todos",
+                      icon: "fas fa-clipboard-list",
+                    },
+                    {
+                      text: "Календарь",
+                      path: "/main/calendar",
+                      icon: "fas fa-calendar-alt",
+                    },
                   ].map((data, index) => (
                     <ListItem button key={data.text}>
                       <ListItemIcon>
@@ -341,9 +340,36 @@ export default function MiniDrawer() {
           <div className="main_content_container">
             <Switch>
               <Route path="/main" component={Profile} exact />
-              <Route path="/main/clothes" component={Clothes}/>
-              <Route path="/main/shoes" component={Shoes}/>
-              <Route path="/main/perfume" component={Perfume}/>
+              {[
+                {
+                  title: "Шаблоны для одежды",
+                  category: "clothes",
+                  path: "/main/clothes",
+                },
+                {
+                  title: "Шаблоны для обуви",
+                  category: "shoes",
+                  path: "/main/shoes",
+                },
+                {
+                  title: "Шаблоны для парфюма",
+                  category: "perfume",
+                  path: "/main/perfume",
+                },
+              ].map((item) => {
+                return (
+                  <Route
+                    path={item.path}
+                    render={() => (
+                      <SingleSidebarCategory
+                        title={item.title}
+                        category={item.category}
+                      />
+                    )}
+                  />
+                )
+              })}
+
               <Route path="/main/todos" component={Todos} />
               <Route path="/main/calendar" component={Calendar} />
               {!successUpdate && (
